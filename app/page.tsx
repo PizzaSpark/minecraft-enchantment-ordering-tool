@@ -230,7 +230,12 @@ export default function Home() {
 
           <div className="lg:sticky lg:top-8 lg:self-start">
             {result ? (
-              <ResultsDisplay result={result} mode={optimizeMode} />
+              <ResultsDisplay 
+                result={result} 
+                mode={optimizeMode} 
+                selectedItem={selectedItem}
+                selectedEnchantments={selectedEnchantments}
+              />
             ) : (
               <Card>
                 <CardContent className="pt-12 pb-12 text-center">

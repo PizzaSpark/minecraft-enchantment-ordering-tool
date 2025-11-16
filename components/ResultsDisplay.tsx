@@ -11,9 +11,11 @@ import { Info } from 'lucide-react';
 interface ResultsDisplayProps {
   result: CalculationResult | null;
   mode: 'levels' | 'prior_work';
+  selectedItem: string;
+  selectedEnchantments: Map<string, number>;
 }
 
-export default function ResultsDisplay({ result, mode }: ResultsDisplayProps) {
+export default function ResultsDisplay({ result, mode, selectedItem, selectedEnchantments }: ResultsDisplayProps) {
   if (!result) return null;
 
   function formatTime(ms: number): string {
@@ -33,38 +35,71 @@ export default function ResultsDisplay({ result, mode }: ResultsDisplayProps) {
     return `${xp.toLocaleString()} xp`;
   }
 
-  function getItemDisplay(item: any): { name: string; enchants: string[] } {
+  function getItemDisplay(item: any): { name: string; enchants: string[]; isItem: boolean } {
     let itemName = '';
     const enchants: string[] = [];
+    let isItem = false;
 
-    if (typeof item.I === 'string') {
-      if (ENCHANTMENT_DISPLAY_NAMES[item.I]) {
-        itemName = 'Book';
-        enchants.push(ENCHANTMENT_DISPLAY_NAMES[item.I]);
-      } else if (item.I === 'item') {
-        itemName = 'Item';
-      } else {
-        itemName = ITEM_DISPLAY_NAMES[item.I] || item.I;
+    // Helper to find the root item type by traversing the tree
+    const findRootItemType = (obj: any): string | null => {
+      if (!obj) return null;
+      
+      // If this node has an I property that's not an enchantment, it's an item
+      if (obj.I && typeof obj.I === 'string' && obj.I !== 'item' && !ENCHANTMENT_DISPLAY_NAMES[obj.I]) {
+        return obj.I;
       }
-    } else if (typeof item.I === 'number') {
+      if (obj.I === 'item') {
+        return 'item';
+      }
+      
+      // Check left and right children
+      const leftItem = obj.L ? findRootItemType(obj.L) : null;
+      if (leftItem) return leftItem;
+      
+      const rightItem = obj.R ? findRootItemType(obj.R) : null;
+      if (rightItem) return rightItem;
+      
+      return null;
+    };
+
+    const rootItemType = findRootItemType(item);
+    
+    if (rootItemType) {
+      if (rootItemType === 'item') {
+        itemName = ITEM_DISPLAY_NAMES[selectedItem] || selectedItem;
+      } else {
+        itemName = ITEM_DISPLAY_NAMES[rootItemType] || rootItemType;
+      }
+      isItem = true;
+    } else {
       itemName = 'Book';
+      isItem = false;
     }
 
-    // Find enchantments recursively
-    const findEnchants = (obj: any): string[] => {
+    // Find enchantment names recursively
+    const findEnchantNames = (obj: any): string[] => {
       const found: string[] = [];
-      if (obj.I && ENCHANTMENT_DISPLAY_NAMES[obj.I]) {
-        found.push(ENCHANTMENT_DISPLAY_NAMES[obj.I]);
+      if (obj.I && typeof obj.I === 'string' && ENCHANTMENT_DISPLAY_NAMES[obj.I]) {
+        found.push(obj.I);
       }
-      if (obj.L) found.push(...findEnchants(obj.L));
-      if (obj.R) found.push(...findEnchants(obj.R));
+      if (obj.L) found.push(...findEnchantNames(obj.L));
+      if (obj.R) found.push(...findEnchantNames(obj.R));
       return found;
     };
 
-    const foundEnchants = findEnchants(item);
-    enchants.push(...foundEnchants);
+    const foundEnchantNames = findEnchantNames(item);
+    
+    // Map enchant names to display names with levels
+    foundEnchantNames.forEach(enchantKey => {
+      const displayName = ENCHANTMENT_DISPLAY_NAMES[enchantKey];
+      const level = selectedEnchantments.get(enchantKey);
+      
+      if (displayName && level) {
+        enchants.push(level > 1 ? `${displayName} ${level}` : displayName);
+      }
+    });
 
-    return { name: itemName, enchants: Array.from(new Set(enchants)) };
+    return { name: itemName, enchants: Array.from(new Set(enchants)), isItem };
   }
 
   return (
@@ -124,21 +159,21 @@ export default function ResultsDisplay({ result, mode }: ResultsDisplayProps) {
                             <span className="text-muted-foreground">Combine </span>
                             <span className="font-semibold">
                               {leftItem.name}
+                              {leftItem.enchants.length > 0 && (
+                                <span className="text-xs text-muted-foreground ml-1">
+                                  ({leftItem.enchants.join(', ')})
+                                </span>
+                              )}
                             </span>
-                            {leftItem.enchants.length > 0 && (
-                              <span className="text-xs text-muted-foreground ml-1">
-                                ({leftItem.enchants.join(', ')})
-                              </span>
-                            )}
                             <span className="text-muted-foreground"> with </span>
                             <span className="font-semibold">
                               {rightItem.name}
+                              {rightItem.enchants.length > 0 && (
+                                <span className="text-xs text-muted-foreground ml-1">
+                                  ({rightItem.enchants.join(', ')})
+                                </span>
+                              )}
                             </span>
-                            {rightItem.enchants.length > 0 && (
-                              <span className="text-xs text-muted-foreground ml-1">
-                                ({rightItem.enchants.join(', ')})
-                              </span>
-                            )}
                           </div>
                           
                           <div className="flex flex-wrap gap-2">
