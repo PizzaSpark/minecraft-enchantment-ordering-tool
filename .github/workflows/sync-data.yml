@@ -1,0 +1,42 @@
+name: Sync Minecraft data
+
+# Checks every Monday for a new stable Minecraft release and opens a PR with the
+# regenerated src/data/minecraft.json when anything changed.
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Minecraft version (blank = latest stable)'
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/sync-data.mjs ${{ inputs.version }}
+      - name: Ignore date-only changes
+        run: |
+          if git diff --quiet -I '"syncedAt"' -- src/data; then git checkout -- src/data; fi
+      - run: npm run build
+      - id: version
+        run: echo "mc=$(node -p "require('./src/data/minecraft.json').version")" >> "$GITHUB_OUTPUT"
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: data/minecraft-sync
+          title: 'Update enchantment data to Minecraft ${{ steps.version.outputs.mc }}'
+          commit-message: 'Update enchantment data to Minecraft ${{ steps.version.outputs.mc }}'
+          body: |
+            Regenerated `src/data/minecraft.json` from the game's own data files (via misode/mcmeta).
+            Review the diff for new or changed enchantments and items before merging.

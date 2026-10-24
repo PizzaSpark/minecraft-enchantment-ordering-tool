@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Anvil Order
 
-## Getting Started
+Find the cheapest order to combine enchanted books in a Minecraft (Java Edition) anvil.
+Pick an item, pick enchantments, and get step-by-step anvil instructions with the level
+and XP cost of each step. Share any setup with the **Copy link** button.
 
-First, run the development server:
+Built with Vite, React, Tailwind CSS v4 and shadcn/ui.
+
+## Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`npm run build` type-checks and builds to `dist/`. `npm run lint` runs oxlint.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Enchantment data
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`src/data/minecraft.json` is generated from Minecraft's own data pack (enchantment
+definitions, item tags and the English language file). It's fetched from
+[misode/mcmeta](https://github.com/misode/mcmeta), which mirrors the files extracted from
+every official release.
 
-## Learn More
+```bash
+npm run sync-data          # latest stable release
+npm run sync-data -- 26.3  # a specific version
+```
 
-To learn more about Next.js, take a look at the following resources:
+The script resolves each enchantment's supported items and exclusive sets, collapses
+item variants into one pick (every sword is a sword), and fails if a group would mix
+items that accept different enchantments, so a new release can't silently produce
+wrong data.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The **Sync Minecraft data** GitHub Action runs this every Monday and opens a PR when a
+new release changes anything. You can also run it by hand from the Actions tab.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## How the solver works
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Each anvil step costs the sacrifice's enchantment value (level × book multiplier)
+plus both sides' prior work penalty (`2^uses − 1`). Any step over 39 levels is
+"Too Expensive!". A merge plan is a binary tree over the books, with the item always as
+the leftmost target. Step costs only depend on which books are on each side and how
+worn each side is, so `src/lib/solver.ts` runs an exact dynamic program over
+(subset of inputs, work count) instead of trying every tree. It optimizes either total
+levels or total XP and runs in a Web Worker.

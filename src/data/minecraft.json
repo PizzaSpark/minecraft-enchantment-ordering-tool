@@ -1,0 +1,949 @@
+{
+  "version": "26.3",
+  "syncedAt": "2026-10-24",
+  "source": "https://github.com/misode/mcmeta/tree/26.3-summary",
+  "enchantments": [
+    {
+      "id": "aqua_affinity",
+      "name": "Aqua Affinity",
+      "maxLevel": 1,
+      "anvilCost": 4,
+      "bookMultiplier": 2,
+      "curse": false,
+      "incompatible": []
+    },
+    {
+      "id": "bane_of_arthropods",
+      "name": "Bane of Arthropods",
+      "maxLevel": 5,
+      "anvilCost": 2,
+      "bookMultiplier": 1,
+      "curse": false,
+      "incompatible": [
+        "breach",
+        "density",
+        "impaling",
+        "sharpness",
+        "smite"
+      ]
+    },
+    {
+      "id": "binding_curse",
+      "name": "Curse of Binding",
+      "maxLevel": 1,
+      "anvilCost": 8,
+      "bookMultiplier": 4,
+      "curse": true,
+      "incompatible": []
+    },
+    {
+      "id": "blast_protection",
+      "name": "Blast Protection",
+      "maxLevel": 4,
+      "anvilCost": 4,
+      "bookMultiplier": 2,
+      "curse": false,
+      "incompatible": [
+        "fire_protection",
+        "projectile_protection",
+        "protection"
+      ]
+    },
+    {
+      "id": "breach",
+      "name": "Breach",
+      "maxLevel": 4,
+      "anvilCost": 4,
+      "bookMultiplier": 2,
+      "curse": false,
+      "incompatible": [
+        "bane_of_arthropods",
+        "density",
+        "impaling",
+        "sharpness",
+        "smite"
+      ]
+    },
+    {
+      "id": "channeling",
+      "name": "Channeling",
+      "maxLevel": 1,
+      "anvilCost": 8,
+      "bookMultiplier": 4,
+      "curse": false,
+      "incompatible": [
+        "riptide"
+      ]
+    },
+    {
+      "id": "density",
+      "name": "Density",
+      "maxLevel": 5,
+      "anvilCost": 2,
+      "bookMultiplier": 1,
+      "curse": false,
+      "incompatible": [
+        "bane_of_arthropods",
+        "breach",
+        "impaling",
+        "sharpness",
+        "smite"
+      ]
+    },
+    {
+      "id": "depth_strider",
+      "name": "Depth Strider",
+      "maxLevel": 3,
+      "anvilCost": 4,
+      "bookMultiplier": 2,
+      "curse": false,
+      "incompatible": [
+        "frost_walker"
+      ]
+    },
+    {
+      "id": "efficiency",
+      "name": "Efficiency",
+      "maxLevel": 5,
+      "anvilCost": 1,
+      "bookMultiplier": 1,
+      "curse": false,
+      "incompatible": []
+    },
+    {
+      "id": "feather_falling",
+      "name": "Feather Falling",
+      "maxLevel": 4,
+      "anvilCost": 2,
+      "bookMultiplier": 1,
+      "curse": false,
+      "incompatible": []
+    },
+    {
+      "id": "fire_aspect",
+      "name": "Fire Aspect",
+      "maxLevel": 2,
+      "anvilCost": 4,
+      "bookMultiplier": 2,
+      "curse": false,
+      "incompatible": []
+    },
+    {
+      "id": "fire_protection",
+      "name": "Fire Protection",
+      "maxLevel": 4,
+      "anvilCost": 2,
+      "bookMultiplier": 1,
+      "curse": false,
+      "incompatible": [
+        "blast_protection",
+        "projectile_protection",
+        "protection"
+      ]
+    },
+    {
+      "id": "flame",
+      "name": "Flame",
+      "maxLevel": 1,
+      "anvilCost": 4,
+      "bookMultiplier": 2,
+      "curse": false,
+      "incompatible": []
+    },
+    {
+      "id": "fortune",
+      "name": "Fortune",
+      "maxLevel": 3,
+      "anvilCost": 4,
+      "bookMultiplier": 2,
+      "curse": false,
+      "incompatible": [
+        "silk_touch"
+      ]
+    },
+    {
+      "id": "frost_walker",
+      "name": "Frost Walker",
+      "maxLevel": 2,
+      "anvilCost": 4,
+      "bookMultiplier": 2,
+      "curse": false,
+      "incompatible": [
+        "depth_strider"
+      ]
+    },
+    {
+      "id": "impaling",
+      "name": "Impaling",
+      "maxLevel": 5,
+      "anvilCost": 4,
+      "bookMultiplier": 2,
+      "curse": false,
+      "incompatible": [
+        "bane_of_arthropods",
+        "breach",
+        "density",
+        "sharpness",
+        "smite"
+      ]
+    },
+    {
+      "id": "infinity",
+      "name": "Infinity",
+      "maxLevel": 1,
+      "anvilCost": 8,
+      "bookMultiplier": 4,
+      "curse": false,
+      "incompatible": [
+        "mending"
+      ]
+    },
+    {
+      "id": "knockback",
+      "name": "Knockback",
+      "maxLevel": 2,
+      "anvilCost": 2,
+      "bookMultiplier": 1,
+      "curse": false,
+      "incompatible": []
+    },
+    {
+      "id": "looting",
+      "name": "Looting",
+      "maxLevel": 3,
+      "anvilCost": 4,
+      "bookMultiplier": 2,
+      "curse": false,
+      "incompatible": []
+    },
+    {
+      "id": "loyalty",
+      "name": "Loyalty",
+      "maxLevel": 3,
+      "anvilCost": 2,
+      "bookMultiplier": 1,
+      "curse": false,
+      "incompatible": [
+        "riptide"
+      ]
+    },
+    {
+      "id": "luck_of_the_sea",
+      "name": "Luck of the Sea",
+      "maxLevel": 3,
+      "anvilCost": 4,
+      "bookMultiplier": 2,
+      "curse": false,
+      "incompatible": []
+    },
+    {
+      "id": "lunge",
+      "name": "Lunge",
+      "maxLevel": 3,
+      "anvilCost": 2,
+      "bookMultiplier": 1,
+      "curse": false,
+      "incompatible": []
+    },
+    {
+      "id": "lure",
+      "name": "Lure",
+      "maxLevel": 3,
+      "anvilCost": 4,
+      "bookMultiplier": 2,
+      "curse": false,
+      "incompatible": []
+    },
+    {
+      "id": "mending",
+      "name": "Mending",
+      "maxLevel": 1,
+      "anvilCost": 4,
+      "bookMultiplier": 2,
+      "curse": false,
+      "incompatible": [
+        "infinity"
+      ]
+    },
+    {
+      "id": "multishot",
+      "name": "Multishot",
+      "maxLevel": 1,
+      "anvilCost": 4,
+      "bookMultiplier": 2,
+      "curse": false,
+      "incompatible": [
+        "piercing"
+      ]
+    },
+    {
+      "id": "piercing",
+      "name": "Piercing",
+      "maxLevel": 4,
+      "anvilCost": 1,
+      "bookMultiplier": 1,
+      "curse": false,
+      "incompatible": [
+        "multishot"
+      ]
+    },
+    {
+      "id": "power",
+      "name": "Power",
+      "maxLevel": 5,
+      "anvilCost": 1,
+      "bookMultiplier": 1,
+      "curse": false,
+      "incompatible": []
+    },
+    {
+      "id": "projectile_protection",
+      "name": "Projectile Protection",
+      "maxLevel": 4,
+      "anvilCost": 2,
+      "bookMultiplier": 1,
+      "curse": false,
+      "incompatible": [
+        "blast_protection",
+        "fire_protection",
+        "protection"
+      ]
+    },
+    {
+      "id": "protection",
+      "name": "Protection",
+      "maxLevel": 4,
+      "anvilCost": 1,
+      "bookMultiplier": 1,
+      "curse": false,
+      "incompatible": [
+        "blast_protection",
+        "fire_protection",
+        "projectile_protection"
+      ]
+    },
+    {
+      "id": "punch",
+      "name": "Punch",
+      "maxLevel": 2,
+      "anvilCost": 4,
+      "bookMultiplier": 2,
+      "curse": false,
+      "incompatible": []
+    },
+    {
+      "id": "quick_charge",
+      "name": "Quick Charge",
+      "maxLevel": 3,
+      "anvilCost": 2,
+      "bookMultiplier": 1,
+      "curse": false,
+      "incompatible": []
+    },
+    {
+      "id": "respiration",
+      "name": "Respiration",
+      "maxLevel": 3,
+      "anvilCost": 4,
+      "bookMultiplier": 2,
+      "curse": false,
+      "incompatible": []
+    },
+    {
+      "id": "riptide",
+      "name": "Riptide",
+      "maxLevel": 3,
+      "anvilCost": 4,
+      "bookMultiplier": 2,
+      "curse": false,
+      "incompatible": [
+        "channeling",
+        "loyalty"
+      ]
+    },
+    {
+      "id": "sharpness",
+      "name": "Sharpness",
+      "maxLevel": 5,
+      "anvilCost": 1,
+      "bookMultiplier": 1,
+      "curse": false,
+      "incompatible": [
+        "bane_of_arthropods",
+        "breach",
+        "density",
+        "impaling",
+        "smite"
+      ]
+    },
+    {
+      "id": "silk_touch",
+      "name": "Silk Touch",
+      "maxLevel": 1,
+      "anvilCost": 8,
+      "bookMultiplier": 4,
+      "curse": false,
+      "incompatible": [
+        "fortune"
+      ]
+    },
+    {
+      "id": "smite",
+      "name": "Smite",
+      "maxLevel": 5,
+      "anvilCost": 2,
+      "bookMultiplier": 1,
+      "curse": false,
+      "incompatible": [
+        "bane_of_arthropods",
+        "breach",
+        "density",
+        "impaling",
+        "sharpness"
+      ]
+    },
+    {
+      "id": "soul_speed",
+      "name": "Soul Speed",
+      "maxLevel": 3,
+      "anvilCost": 8,
+      "bookMultiplier": 4,
+      "curse": false,
+      "incompatible": []
+    },
+    {
+      "id": "sweeping_edge",
+      "name": "Sweeping Edge",
+      "maxLevel": 3,
+      "anvilCost": 4,
+      "bookMultiplier": 2,
+      "curse": false,
+      "incompatible": []
+    },
+    {
+      "id": "swift_sneak",
+      "name": "Swift Sneak",
+      "maxLevel": 3,
+      "anvilCost": 8,
+      "bookMultiplier": 4,
+      "curse": false,
+      "incompatible": []
+    },
+    {
+      "id": "thorns",
+      "name": "Thorns",
+      "maxLevel": 3,
+      "anvilCost": 8,
+      "bookMultiplier": 4,
+      "curse": false,
+      "incompatible": []
+    },
+    {
+      "id": "unbreaking",
+      "name": "Unbreaking",
+      "maxLevel": 3,
+      "anvilCost": 2,
+      "bookMultiplier": 1,
+      "curse": false,
+      "incompatible": []
+    },
+    {
+      "id": "vanishing_curse",
+      "name": "Curse of Vanishing",
+      "maxLevel": 1,
+      "anvilCost": 8,
+      "bookMultiplier": 4,
+      "curse": true,
+      "incompatible": []
+    },
+    {
+      "id": "wind_burst",
+      "name": "Wind Burst",
+      "maxLevel": 3,
+      "anvilCost": 4,
+      "bookMultiplier": 2,
+      "curse": false,
+      "incompatible": []
+    }
+  ],
+  "items": [
+    {
+      "id": "boots",
+      "name": "Boots",
+      "section": "armor",
+      "members": [
+        "chainmail_boots",
+        "copper_boots",
+        "diamond_boots",
+        "golden_boots",
+        "iron_boots",
+        "leather_boots",
+        "netherite_boots"
+      ],
+      "enchantments": [
+        "binding_curse",
+        "blast_protection",
+        "depth_strider",
+        "feather_falling",
+        "fire_protection",
+        "frost_walker",
+        "mending",
+        "projectile_protection",
+        "protection",
+        "soul_speed",
+        "thorns",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "chestplate",
+      "name": "Chestplate",
+      "section": "armor",
+      "members": [
+        "chainmail_chestplate",
+        "copper_chestplate",
+        "diamond_chestplate",
+        "golden_chestplate",
+        "iron_chestplate",
+        "leather_chestplate",
+        "netherite_chestplate"
+      ],
+      "enchantments": [
+        "binding_curse",
+        "blast_protection",
+        "fire_protection",
+        "mending",
+        "projectile_protection",
+        "protection",
+        "thorns",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "helmet",
+      "name": "Helmet",
+      "section": "armor",
+      "members": [
+        "chainmail_helmet",
+        "copper_helmet",
+        "diamond_helmet",
+        "golden_helmet",
+        "iron_helmet",
+        "leather_helmet",
+        "netherite_helmet"
+      ],
+      "enchantments": [
+        "aqua_affinity",
+        "binding_curse",
+        "blast_protection",
+        "fire_protection",
+        "mending",
+        "projectile_protection",
+        "protection",
+        "respiration",
+        "thorns",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "leggings",
+      "name": "Leggings",
+      "section": "armor",
+      "members": [
+        "chainmail_leggings",
+        "copper_leggings",
+        "diamond_leggings",
+        "golden_leggings",
+        "iron_leggings",
+        "leather_leggings",
+        "netherite_leggings"
+      ],
+      "enchantments": [
+        "binding_curse",
+        "blast_protection",
+        "fire_protection",
+        "mending",
+        "projectile_protection",
+        "protection",
+        "swift_sneak",
+        "thorns",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "elytra",
+      "name": "Elytra",
+      "section": "armor",
+      "members": [
+        "elytra"
+      ],
+      "enchantments": [
+        "binding_curse",
+        "mending",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "shield",
+      "name": "Shield",
+      "section": "armor",
+      "members": [
+        "shield"
+      ],
+      "enchantments": [
+        "mending",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "turtle_helmet",
+      "name": "Turtle Shell",
+      "section": "armor",
+      "members": [
+        "turtle_helmet"
+      ],
+      "enchantments": [
+        "aqua_affinity",
+        "binding_curse",
+        "blast_protection",
+        "fire_protection",
+        "mending",
+        "projectile_protection",
+        "protection",
+        "respiration",
+        "thorns",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "bow",
+      "name": "Bow",
+      "section": "weapons",
+      "members": [
+        "bow"
+      ],
+      "enchantments": [
+        "flame",
+        "infinity",
+        "mending",
+        "power",
+        "punch",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "spear",
+      "name": "Spear",
+      "section": "weapons",
+      "members": [
+        "copper_spear",
+        "diamond_spear",
+        "golden_spear",
+        "iron_spear",
+        "netherite_spear",
+        "stone_spear",
+        "wooden_spear"
+      ],
+      "enchantments": [
+        "bane_of_arthropods",
+        "fire_aspect",
+        "knockback",
+        "looting",
+        "lunge",
+        "mending",
+        "sharpness",
+        "smite",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "sword",
+      "name": "Sword",
+      "section": "weapons",
+      "members": [
+        "copper_sword",
+        "diamond_sword",
+        "golden_sword",
+        "iron_sword",
+        "netherite_sword",
+        "stone_sword",
+        "wooden_sword"
+      ],
+      "enchantments": [
+        "bane_of_arthropods",
+        "fire_aspect",
+        "knockback",
+        "looting",
+        "mending",
+        "sharpness",
+        "smite",
+        "sweeping_edge",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "crossbow",
+      "name": "Crossbow",
+      "section": "weapons",
+      "members": [
+        "crossbow"
+      ],
+      "enchantments": [
+        "mending",
+        "multishot",
+        "piercing",
+        "quick_charge",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "mace",
+      "name": "Mace",
+      "section": "weapons",
+      "members": [
+        "mace"
+      ],
+      "enchantments": [
+        "bane_of_arthropods",
+        "breach",
+        "density",
+        "fire_aspect",
+        "mending",
+        "smite",
+        "unbreaking",
+        "vanishing_curse",
+        "wind_burst"
+      ]
+    },
+    {
+      "id": "trident",
+      "name": "Trident",
+      "section": "weapons",
+      "members": [
+        "trident"
+      ],
+      "enchantments": [
+        "channeling",
+        "impaling",
+        "loyalty",
+        "mending",
+        "riptide",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "brush",
+      "name": "Brush",
+      "section": "tools",
+      "members": [
+        "brush"
+      ],
+      "enchantments": [
+        "mending",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "axe",
+      "name": "Axe",
+      "section": "tools",
+      "members": [
+        "copper_axe",
+        "diamond_axe",
+        "golden_axe",
+        "iron_axe",
+        "netherite_axe",
+        "stone_axe",
+        "wooden_axe"
+      ],
+      "enchantments": [
+        "bane_of_arthropods",
+        "efficiency",
+        "fortune",
+        "mending",
+        "sharpness",
+        "silk_touch",
+        "smite",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "hoe",
+      "name": "Hoe",
+      "section": "tools",
+      "members": [
+        "copper_hoe",
+        "diamond_hoe",
+        "golden_hoe",
+        "iron_hoe",
+        "netherite_hoe",
+        "stone_hoe",
+        "wooden_hoe"
+      ],
+      "enchantments": [
+        "efficiency",
+        "fortune",
+        "mending",
+        "silk_touch",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "pickaxe",
+      "name": "Pickaxe",
+      "section": "tools",
+      "members": [
+        "copper_pickaxe",
+        "diamond_pickaxe",
+        "golden_pickaxe",
+        "iron_pickaxe",
+        "netherite_pickaxe",
+        "stone_pickaxe",
+        "wooden_pickaxe"
+      ],
+      "enchantments": [
+        "efficiency",
+        "fortune",
+        "mending",
+        "silk_touch",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "shovel",
+      "name": "Shovel",
+      "section": "tools",
+      "members": [
+        "copper_shovel",
+        "diamond_shovel",
+        "golden_shovel",
+        "iron_shovel",
+        "netherite_shovel",
+        "stone_shovel",
+        "wooden_shovel"
+      ],
+      "enchantments": [
+        "efficiency",
+        "fortune",
+        "mending",
+        "silk_touch",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "fishing_rod",
+      "name": "Fishing Rod",
+      "section": "tools",
+      "members": [
+        "fishing_rod"
+      ],
+      "enchantments": [
+        "luck_of_the_sea",
+        "lure",
+        "mending",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "flint_and_steel",
+      "name": "Flint and Steel",
+      "section": "tools",
+      "members": [
+        "flint_and_steel"
+      ],
+      "enchantments": [
+        "mending",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "shears",
+      "name": "Shears",
+      "section": "tools",
+      "members": [
+        "shears"
+      ],
+      "enchantments": [
+        "efficiency",
+        "mending",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "carrot_on_a_stick",
+      "name": "Carrot on a Stick",
+      "section": "other",
+      "members": [
+        "carrot_on_a_stick"
+      ],
+      "enchantments": [
+        "mending",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "head",
+      "name": "Head / Pumpkin",
+      "section": "other",
+      "members": [
+        "carved_pumpkin",
+        "creeper_head",
+        "dragon_head",
+        "piglin_head",
+        "player_head",
+        "skeleton_skull",
+        "wither_skeleton_skull",
+        "zombie_head"
+      ],
+      "enchantments": [
+        "binding_curse",
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "compass",
+      "name": "Compass",
+      "section": "other",
+      "members": [
+        "compass"
+      ],
+      "enchantments": [
+        "vanishing_curse"
+      ]
+    },
+    {
+      "id": "warped_fungus_on_a_stick",
+      "name": "Warped Fungus on a Stick",
+      "section": "other",
+      "members": [
+        "warped_fungus_on_a_stick"
+      ],
+      "enchantments": [
+        "mending",
+        "unbreaking",
+        "vanishing_curse"
+      ]
+    }
+  ]
+}
