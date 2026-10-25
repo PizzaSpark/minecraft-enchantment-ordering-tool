@@ -11,9 +11,11 @@ import { EnchantmentList, type Selection } from '@/components/enchantment-list'
 import { ItemIcon } from '@/components/item-icon'
 import { ItemPicker } from '@/components/item-picker'
 import { Results } from '@/components/results'
+import { Templates } from '@/components/templates'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { ENCHANTMENT_BY_ID, GAME_VERSION, ITEM_BY_ID, MAX_BOOKS, SYNCED_AT } from '@/data'
 import { useSolution } from '@/hooks/use-solution'
+import { readLast, writeLast, type Template, useTemplates } from '@/lib/saved'
 import type { Objective } from '@/lib/solver'
 
 const REPO_URL = 'https://github.com/PizzaSpark/minecraft-enchantment-ordering-tool'
@@ -37,18 +39,37 @@ function readHash(): State {
   return { item: it.id, selection, objective: mode === 'xp' ? 'xp' : 'levels' }
 }
 
+// No link to open: pick up where this browser left off.
+function initialState(): State {
+  if (location.hash.length > 1) return readHash()
+  const last = readLast()
+  const item = last.item ?? 'sword'
+  return { item, selection: last.selections[item] ?? {}, objective: last.objective ?? 'levels' }
+}
+
 function writeHash({ item, selection, objective }: State) {
   const list = Object.entries(selection).map(([id, lvl]) => `${id}-${lvl}`).join(',')
   history.replaceState(null, '', `#${[item, list, objective === 'xp' ? 'xp' : ''].join('/').replace(/\/+$/, '')}`)
 }
 
 export default function App() {
-  const [state, setState] = useState(readHash)
+  const [state, setState] = useState(initialState)
+  const [stored, setStored] = useState(() => readLast().selections)
+  const [templates, setTemplates] = useTemplates()
   const [showCurses, setShowCurses] = useState(false)
   const { item: itemId, selection, objective } = state
   const item = ITEM_BY_ID.get(itemId)!
 
   useEffect(() => writeHash(state), [state])
+  // Last selection per item: what's stored for the others plus what's on screen now.
+  const remembered = useMemo(() => {
+    const rest = Object.fromEntries(Object.entries(stored).filter(([id]) => id !== state.item))
+    return Object.keys(state.selection).length ? { ...rest, [state.item]: state.selection } : rest
+  }, [stored, state.item, state.selection])
+  useEffect(
+    () => writeLast({ item: state.item, objective: state.objective, selections: remembered }),
+    [state.item, state.objective, remembered],
+  )
   useEffect(() => {
     const onHash = () => setState(readHash())
     window.addEventListener('hashchange', onHash)
@@ -78,11 +99,50 @@ export default function App() {
 
   const setItem = (id: string) => {
     const next = ITEM_BY_ID.get(id)!
+    setStored(remembered)
     setState((s) => ({
       ...s,
       item: id,
-      selection: Object.fromEntries(Object.entries(s.selection).filter(([e]) => next.enchantments.includes(e))),
+      // Back to an item you've set up before restores it; otherwise carry over what still applies.
+      selection:
+        remembered[id] ??
+        Object.fromEntries(Object.entries(s.selection).filter(([e]) => next.enchantments.includes(e))),
     }))
+  }
+
+  const saveTemplate = (name: string, items: Record<string, Selection>) => {
+    const ids = Object.keys(items).sort().join()
+    const same = templates.find(
+      (t) => t.name.toLowerCase() === name.toLowerCase() && Object.keys(t.items).sort().join() === ids,
+    )
+    const template = { id: same?.id ?? crypto.randomUUID(), name, items }
+    setTemplates((ts) => (same ? ts.map((t) => (t.id === same.id ? template : t)) : [...ts, template]))
+    const n = Object.keys(items).length
+    toast.success(same ? `Updated "${name}"` : `Saved "${name}"`, {
+      description: n > 1 ? `Set of ${n} items.` : `Template for ${ITEM_BY_ID.get(Object.keys(items)[0])!.name}.`,
+    })
+  }
+
+  const applyTemplate = (t: Template, target?: string) => {
+    const id = target ?? (t.items[itemId] ? itemId : Object.keys(t.items)[0])
+    setStored({ ...remembered, ...t.items })
+    setState((s) => ({ ...s, item: id, selection: t.items[id] }))
+    const others = Object.keys(t.items).filter((i) => i !== id)
+    if (others.length) {
+      toast(`Loaded "${t.name}"`, {
+        description: `Also set up ${others.map((i) => ITEM_BY_ID.get(i)!.name).join(', ')}. Switch items to see each.`,
+      })
+    }
+  }
+
+  const deleteTemplate = (id: string) => {
+    const t = templates.find((x) => x.id === id)
+    setTemplates((ts) => ts.filter((x) => x.id !== id))
+    if (t) {
+      toast(`Deleted "${t.name}"`, {
+        action: { label: 'Undo', onClick: () => setTemplates((ts) => [...ts, t]) },
+      })
+    }
   }
 
   const setLevel = (id: string, level: number | null) => {
@@ -170,7 +230,16 @@ export default function App() {
               <CardDescription>
                 Click a name for its max level, or pick a level. {count > 0 && `${count} selected.`}
               </CardDescription>
-              <CardAction>
+              <CardAction className="flex items-center">
+                <Templates
+                  item={item}
+                  selection={selection}
+                  remembered={remembered}
+                  templates={templates}
+                  onSave={saveTemplate}
+                  onApply={applyTemplate}
+                  onDelete={deleteTemplate}
+                />
                 <Button
                   variant="ghost"
                   size="sm"
